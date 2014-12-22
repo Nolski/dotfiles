@@ -1,0 +1,9 @@
+set wrap
+set foldmethod=syntax
+
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_jshint_conf="~/.jshintrc"
+
+let NERDTreeMapOpenInTab='\r'
+let NERDTreeMapOpenInTab='<ENTER>'
