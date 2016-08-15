@@ -1,0 +1,19 @@
+rename servqq.js
+rename project-editorcqqq.js
+rm 
+delete test_context_processors.py
+delete 
+rename viewqa.py
+wq
+mkdir popcorn
+mv editor.html popcorn/
+touch renderer.py
+open_with vim
+delete
+touch eval.js
+complex_prefs_defaults_code.js
+touch complex_prefs_defaults_code.js
+mv home.html index.html
+
+open_with img-cat
+:q

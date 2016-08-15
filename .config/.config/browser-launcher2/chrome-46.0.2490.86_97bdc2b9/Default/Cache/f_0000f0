@@ -1,0 +1,1163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>JMESPath Tutorial &mdash; JMESPath</title>
+    
+    <link rel="stylesheet" href="_static/jmespath.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="JMESPath" href="index.html" />
+    <link rel="next" title="JMESPath Examples" href="examples.html" />
+    <link rel="prev" title="JMESPath" href="contents.html" />
+  
+   
+
+  </head>
+  <body>
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#toggle-main-nav">
+      </button>
+      <a class="navbar-brand" href="contents.html"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="toggle-main-nav">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorial.html">Tutorial</a></li>
+        <li><a href="/examples.html">Examples</a></li>
+        <li><a href="/specification.html">Specification</a></li>
+        <li><a href="/libraries.html">Libraries</a></li>
+        <li><a href="https://github.com/jmespath">Github</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="JMESPath Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="JMESPath"
+             accesskey="P">previous</a> |</li>
+        <li><a href="contents.html">JMESPath</a> &raquo;</li> 
+      </ul>
+    </div>
+        <div class="container">
+            <div class="main-content">
+              <div class="row">
+                  <div class="col-md-9 col-md-push-3">
+                    
+  <div class="section" id="jmespath-tutorial">
+<h1>JMESPath Tutorial<a class="headerlink" href="#jmespath-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>This is a tutorial of the JMESPath language.  JMESPath is a query language
+for JSON.  You can extract and transform elements from a JSON document.
+The examples below are interactive.  You can change the JMESPath expressions
+and see the results update automatically.</p>
+<p>For each of these examples, the JMESPath expression is applied to the input
+JSON on the left, and the result of evaluting the JMESPath expression is
+shown in the JSON document on the right hand side.</p>
+<div class="section" id="basic-expressions">
+<h2>Basic Expressions<a class="headerlink" href="#basic-expressions" title="Permalink to this headline">¶</a></h2>
+<p>The simplest JMESPath expression is an <a class="reference internal" href="specification.html#identifiers"><em>identifier</em></a>, which
+selects a key in an JSON object:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="a" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="5">
+{"a": "foo", "b": "bar", "c": "baz"}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Try changing the expression above to <tt class="docutils literal"><span class="pre">b</span></tt>, and <tt class="docutils literal"><span class="pre">c</span></tt> and note the updated
+result.  Also note that if you refer to a key that does not exist, a value of
+<tt class="docutils literal"><span class="pre">null</span></tt> (or the language equivalent of <tt class="docutils literal"><span class="pre">null</span></tt>) is returned.</p>
+<p>You can use a <a class="reference internal" href="specification.html#subexpressions"><em>subexpression</em></a> to return to nested values
+in a JSON object:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="a.b.c.d" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="5">
+{"a": {"b": {"c": {"d": "value"}}}}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>If you refer to a key that does not exist, a value of <tt class="docutils literal"><span class="pre">null</span></tt> is returned.
+Attempting to subsequently access identifiers will continue to return a value
+of <tt class="docutils literal"><span class="pre">null</span></tt>.  Try changing the expression to <tt class="docutils literal"><span class="pre">b.c.d.e</span></tt> above.</p>
+<p><a class="reference internal" href="specification.html#indexexpressions"><em>Index Expressions</em></a> allow you to select a specific
+element in a list.  It should look similar to array access in common
+programming languages.  Indexing is 0 based.</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="[1]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="5">
+["a", "b", "c", "d", "e", "f"]</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>If you specify an index that&#8217;s larger than the list, a value of
+<tt class="docutils literal"><span class="pre">null</span></tt> is returned.  You can also use negative indexing to index
+from the end of the list.  <tt class="docutils literal"><span class="pre">[-1]</span></tt> refers to the last element
+in the list, <tt class="docutils literal"><span class="pre">[-2]</span></tt> refers to the penultimate element.  Try it out
+in the example above.</p>
+<p>You can combine identifiers, sub expressions, and index expressions to
+access JSON elements.</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="a.b.c[0].d[1][0]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="10">
+{"a": {
+  "b": {
+    "c": [
+      {"d": [0, [1, 2]]},
+      {"d": [3, 4]}
+    ]
+  }
+}}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="section" id="slicing">
+<h2>Slicing<a class="headerlink" href="#slicing" title="Permalink to this headline">¶</a></h2>
+<p>Slices allow you to select a contiguous subset of an array.  If
+you&#8217;ve ever used slicing in python, then you already know how to use JMESPath
+slices.  In its simplest form, you can specify the starting index and the
+ending index.  The ending index is the first index which you do <em>not</em> want
+included in the slice.  Let&#8217;s take a look at some examples.  First, given an
+array of integers from 0 to 9, let&#8217;s select the first half of the array:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="[0:5]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="5">
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>This slice result contains the elements 0, 1, 2, 3, and 4.  The element at
+index 5 is not included.  If we want to select the second half of the array,
+we can use this expression:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="[5:10]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="5">
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>The two example above can be shortened.  If the <tt class="docutils literal"><span class="pre">start</span></tt> or <tt class="docutils literal"><span class="pre">step</span></tt> value is
+omitted it is assumed to be the start or the end of the array.  For example:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="[:5]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="5">
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Try modifying changing the example above to only include the last half of the
+array elements without specifying the end value of <tt class="docutils literal"><span class="pre">10</span></tt>.</p>
+<p>The general form of a slice is <tt class="docutils literal"><span class="pre">[start:stop:step]</span></tt>.  So far we&#8217;ve looked
+at the <tt class="docutils literal"><span class="pre">[start:stop]</span></tt> form.  By default, the <tt class="docutils literal"><span class="pre">step</span></tt> value is <tt class="docutils literal"><span class="pre">1</span></tt>, which
+means to include every element in the range specified by the <tt class="docutils literal"><span class="pre">start</span></tt> and
+<tt class="docutils literal"><span class="pre">stop</span></tt> value.  However, we can use the step value to skip over elements.
+For example, to select only the even elements from the array.</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="[::2]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="5">
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Also note in this example we&#8217;re omitting the <tt class="docutils literal"><span class="pre">start</span></tt> as well as the <tt class="docutils literal"><span class="pre">stop</span></tt>
+value, which means to use <tt class="docutils literal"><span class="pre">0</span></tt> for the <tt class="docutils literal"><span class="pre">start</span></tt> value, and <tt class="docutils literal"><span class="pre">10</span></tt> for the
+<tt class="docutils literal"><span class="pre">stop</span></tt> value.  In this example, the expression <tt class="docutils literal"><span class="pre">[::2]</span></tt> is equivalent to
+<tt class="docutils literal"><span class="pre">[0:10:2]</span></tt>.</p>
+<p>The last thing to know about slices is that just like indexing a single value,
+all the values can be negative.  If the <tt class="docutils literal"><span class="pre">step</span></tt> value is negative, then the
+slice is created in reverse order.  For example:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="[::-1]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="5">
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>The above expression creates a slice but in reverse order.</p>
+<p>If you want all the details about how slices work, check out the
+<a class="reference internal" href="specification.html#slices"><em>section in the JMESPath specification</em></a>.</p>
+</div>
+<div class="section" id="projections">
+<h2>Projections<a class="headerlink" href="#projections" title="Permalink to this headline">¶</a></h2>
+<p>Projections are one of the key features of JMESPath.  It allows you
+to apply an expression to a collection of elements.  There are five kinds of
+projections:</p>
+<ul class="simple">
+<li>List Projections</li>
+<li>Slice Projections</li>
+<li>Object Projections</li>
+<li>Flatten Projections</li>
+<li>Filter Projections</li>
+</ul>
+<div class="section" id="list-and-slice-projections">
+<h3>List and Slice Projections<a class="headerlink" href="#list-and-slice-projections" title="Permalink to this headline">¶</a></h3>
+<p>A <a class="reference internal" href="specification.html#wildcards"><em>wildcard expression</em></a>  creates a list projection, which is a
+projection over a JSON array.  This is best illustrated with an example.
+Let&#8217;s say we have a JSON document describing a people, and  each array element
+is a JSON object that has a <tt class="docutils literal"><span class="pre">first</span></tt>, <tt class="docutils literal"><span class="pre">last</span></tt>, and <tt class="docutils literal"><span class="pre">age</span></tt> key.  Suppose
+we wanted a list of all the first names in our list.</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="people[*].first" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="10">
+{
+  "people": [
+    {"first": "James", "last": "d"},
+    {"first": "Jacob", "last": "e"},
+    {"first": "Jayden", "last": "f"},
+    {"missing": "different"}
+  ],
+  "foo": {"bar": "baz"}
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>In the example above, the <tt class="docutils literal"><span class="pre">first</span></tt> expression, which is just an identifier, is
+applied to each element in the <tt class="docutils literal"><span class="pre">people</span></tt> array.  The results are collected
+into a JSON array and returned as the result of the expression.  The expression
+can be more complex than a basic <tt class="docutils literal"><span class="pre">identifier</span></tt>.  For example, the expression
+<tt class="docutils literal"><span class="pre">foo[*].bar.baz[0]</span></tt> would project the <tt class="docutils literal"><span class="pre">bar.baz[0]</span></tt> expression to each
+element in the <tt class="docutils literal"><span class="pre">foo</span></tt> array.</p>
+<p>There&#8217;s a few things to keep in mind when working with projections.  These are
+discussed in more detail in the <a class="reference internal" href="specification.html#wildcards"><em>wildcard expressions</em></a> section
+of the spec, but the main points are:</p>
+<ul class="simple">
+<li>Projections are evaluated as two steps.  The left hand side (LHS) creates a
+JSON array of initial values.  The right hand side (RHS) of a projection is
+the expression to project for each element in the JSON array created by the
+left hand side.  Each projection type has slightly different semantics when
+evaluating either the left hand side and/or the right hand side.</li>
+<li>If the result of the expression projected onto an individual array element is
+<tt class="docutils literal"><span class="pre">null</span></tt>, then that value is omitted from the collected set of results.</li>
+<li>You can stop a projection with a Pipe Expression (discussed later).</li>
+<li>A list projection is only valid for a JSON array.  If the value is not a
+list, then the result of the expression is <tt class="docutils literal"><span class="pre">null</span></tt>.</li>
+</ul>
+<p>You can try this out in the demo above.  Notice how  <tt class="docutils literal"><span class="pre">people[*].first</span></tt> only
+included three elements, even though the people array has four elements.
+This is because the last element, <tt class="docutils literal"><span class="pre">{&quot;missing&quot;:</span> <span class="pre">&quot;different&quot;}</span></tt> evalues to
+<tt class="docutils literal"><span class="pre">null</span></tt> when the expression <tt class="docutils literal"><span class="pre">first</span></tt> is applied, and <tt class="docutils literal"><span class="pre">null</span></tt> values are not
+added to the collected result array.  If you try the expression <tt class="docutils literal"><span class="pre">foo[*].bar</span></tt>
+you&#8217;ll see a result of <tt class="docutils literal"><span class="pre">null</span></tt>, because the value associated with the <tt class="docutils literal"><span class="pre">foo</span></tt>
+key is a JSON object, not an array, and a list projection is only defined for
+JSON arrays.</p>
+<p>Slice projections are almost identical to a list projection, with the exception
+that the left hand side is the result of evaluating the slice, which may not
+include all the elements in the original list:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="people[:2].first" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="10">
+{
+  "people": [
+    {"first": "James", "last": "d"},
+    {"first": "Jacob", "last": "e"},
+    {"first": "Jayden", "last": "f"},
+    {"missing": "different"}
+  ],
+  "foo": {"bar": "baz"}
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="section" id="object-projections">
+<h3>Object Projections<a class="headerlink" href="#object-projections" title="Permalink to this headline">¶</a></h3>
+<p>Whereas a list projection is defined for a JSON array, an object projection is
+defined for a JSON object.  You can create an object projection using the <tt class="docutils literal"><span class="pre">*</span></tt>
+syntax.  This will create a list of the values of the JSON object, and project
+the right hand side of the projection onto the list of values.</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="ops.*.numArgs" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="10">
+{
+  "ops": {
+    "functionA": {"numArgs": 2},
+    "functionB": {"numArgs": 3},
+    "functionC": {"variadic": true}
+  }
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>In the example above the <tt class="docutils literal"><span class="pre">*</span></tt> creates a JSON array of the values associated
+with the <tt class="docutils literal"><span class="pre">ops</span></tt> JSON object.  The RHS of the projection, <tt class="docutils literal"><span class="pre">numArgs</span></tt>, is then
+applied to the JSON array, resulting in the final array of <tt class="docutils literal"><span class="pre">[2,</span> <span class="pre">3]</span></tt>.  Below
+is a sample walkthrough of how an implementation could <em>potentially</em> implement
+evaluating an object projection.  First, the object projection can be broken
+down into its two components, the left hand side (LHS) and its right hand side
+(RHS):</p>
+<ul class="simple">
+<li><strong>LHS</strong>: <tt class="docutils literal"><span class="pre">ops</span></tt></li>
+<li><strong>RHS</strong>: <tt class="docutils literal"><span class="pre">numArgs</span></tt></li>
+</ul>
+<p>First, the LHS is evaluated to create the initial array to be projected:</p>
+<div class="highlight-python"><div class="highlight"><pre>evaluate(ops, inputData) -&gt; [{&quot;numArgs&quot;: 2}, {&quot;numArgs&quot;: 3},
+                             {&quot;variadic&quot;: True}]
+</pre></div>
+</div>
+<p>Then the RHS is applied to each element in the array:</p>
+<div class="highlight-python"><div class="highlight"><pre>evaluate(numArgs, {numArgs: 2}) -&gt; 2
+evaluate(numArgs, {numArgs: 3}) -&gt; 3
+evaluate(numArgs, {variadic: true}) -&gt; null
+</pre></div>
+</div>
+<p>Any <tt class="docutils literal"><span class="pre">null</span></tt> values are not included in the final result, so the result of the
+entire expression is therefore <tt class="docutils literal"><span class="pre">[2,</span> <span class="pre">3]</span></tt>.</p>
+</div>
+<div class="section" id="flatten-projections">
+<h3>Flatten Projections<a class="headerlink" href="#flatten-projections" title="Permalink to this headline">¶</a></h3>
+<p>More than one projection can be used in a JMESPath expression.  In the case of
+a List/Object projection, the structure of the original document is preserved
+when creating projection within a projection.  For example, let&#8217;s take
+the expression <tt class="docutils literal"><span class="pre">reservations[*].instances[*].state</span></tt>.  This expression
+is saying that the top level key <tt class="docutils literal"><span class="pre">reservations</span></tt> has an array as a value.  For
+each of those array elements, project the <tt class="docutils literal"><span class="pre">instances[*].state</span></tt> expression.
+Within each list element, there&#8217;s an <tt class="docutils literal"><span class="pre">instances</span></tt> key which itself is a value,
+and we create a sub projection for each each list element in the list.
+Here&#8217;s an example of that:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="reservations[*].instances[*].state" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="20">
+{
+  "reservations": [
+    {
+      "instances": [
+        {"state": "running"},
+        {"state": "stopped"}
+      ]
+    },
+    {
+      "instances": [
+        {"state": "terminated"},
+        {"state": "runnning"}
+      ]
+    }
+  ]
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>The result of this expression is <tt class="docutils literal"><span class="pre">[[&quot;running&quot;,</span> <span class="pre">&quot;stopped&quot;],</span> <span class="pre">[&quot;terminated&quot;,</span>
+<span class="pre">&quot;running&quot;]]</span></tt>, which is a list of lists.  The outer list is from the
+projection of <tt class="docutils literal"><span class="pre">reservations[*]</span></tt>, and the inner list is
+a projection of <tt class="docutils literal"><span class="pre">state</span></tt> created from <tt class="docutils literal"><span class="pre">instances[*]</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>1st       r0                         r1
+2nd i0          i1             i0            i1
+[[&quot;running&quot;, &quot;stopped&quot;], [&quot;terminated&quot;, &quot;running&quot;]]
+</pre></div>
+</div>
+<p>What if we just want a list of all the states of our instances?  We&#8217;d ideally
+like a result <tt class="docutils literal"><span class="pre">[&quot;running&quot;,</span> <span class="pre">&quot;stopped&quot;,</span> <span class="pre">&quot;terminated&quot;,</span> <span class="pre">&quot;running&quot;]</span></tt>.  In this
+situation, we don&#8217;t care which reservation the instance belonged to, we just
+want a list of states.</p>
+<p>This is the problem that a <a class="reference internal" href="specification.html#flatten"><em>Flatten Projection</em></a> solves. To get
+the desired result, you can use <tt class="docutils literal"><span class="pre">[]</span></tt> instead of <tt class="docutils literal"><span class="pre">[*]</span></tt> to flatten a list:
+<tt class="docutils literal"><span class="pre">reservations[].instances[].state</span></tt>.  Try changing <tt class="docutils literal"><span class="pre">[*]</span></tt> to <tt class="docutils literal"><span class="pre">[]</span></tt> in the
+expression above and see how the result changes.</p>
+<p>While the <a class="reference internal" href="specification.html#flatten"><em>spec</em></a> goes into more detail, a simple rule of thumb to use
+for the flatten operator, <tt class="docutils literal"><span class="pre">[]</span></tt>, is that:</p>
+<ul class="simple">
+<li>It flattens sublists into the parent list (not recursively, just one level).</li>
+<li>It creates a projection, so anything on the RHS of the flatten projection is
+projected onto the newly created flattened list.</li>
+</ul>
+<p>You can also just use <tt class="docutils literal"><span class="pre">[]</span></tt> on its own to flatten a list:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="[]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="7">
+[
+  [0, 1],
+  2,
+  [3],
+  4,
+  [5, [6, 7]]
+]</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>If you flattened the result of the expression again, <tt class="docutils literal"><span class="pre">[][]</span></tt>, you&#8217;d then get a
+result of <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7]</span></tt>.  Try it out in the example above.</p>
+</div>
+<div class="section" id="filter-projections">
+<h3>Filter Projections<a class="headerlink" href="#filter-projections" title="Permalink to this headline">¶</a></h3>
+<p>Up to this point we&#8217;ve looked at:</p>
+<ul class="simple">
+<li>List/Slice projections</li>
+<li>Object projections</li>
+<li>Flatten projections</li>
+</ul>
+<p>Evaluating the RHS of a projection is a basic type of filter.  If the result of
+the expression evaluated against an individual element results in <tt class="docutils literal"><span class="pre">null</span></tt>, then
+the element is excluded from the final result.</p>
+<p>A filter projection allows you to filter the LHS of the projection <em>before</em>
+evaluating the RHS of a projection.</p>
+<p>For example, let&#8217;s say we have a list of machines, each has a <tt class="docutils literal"><span class="pre">name</span></tt> and a
+<tt class="docutils literal"><span class="pre">state</span></tt>.  We&#8217;d like the name of all machines that are running.
+In pseudocode, this would be:</p>
+<div class="highlight-python"><div class="highlight"><pre>result = []
+foreach machine in inputData[&#39;machines&#39;]
+  if machine[&#39;state&#39;] == &#39;running&#39;
+    result.insert_at_end(machine[&#39;name&#39;])
+return result
+</pre></div>
+</div>
+<p>A filter projection can be used to accomplish this:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="machines[?state=='running'].name" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="7">
+{
+  "machines": [
+    {"name": "a", "state": "running"},
+    {"name": "b", "state": "stopped"},
+    {"name": "b", "state": "running"}
+  ]
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Try changing <tt class="docutils literal"><span class="pre">running</span></tt> to <tt class="docutils literal"><span class="pre">stopped</span></tt> in the example above.  You can also
+remove the <tt class="docutils literal"><span class="pre">.name</span></tt> at the end of the expression if you just want the entire
+JSON object of each machine that has the specified state.</p>
+<p>A filter expression is defined for an array and has the general form
+<tt class="docutils literal"><span class="pre">LHS</span> <span class="pre">[?</span> <span class="pre">&lt;expression&gt;</span> <span class="pre">&lt;comparator&gt;</span> <span class="pre">&lt;expression&gt;]</span> <span class="pre">RHS</span></tt>.  The
+<a class="reference internal" href="specification.html#filterexpressions"><em>filter expression</em></a> spec details exactly what
+comparators are available and how they work, but the standard comparators are
+supported, i.e <tt class="docutils literal"><span class="pre">==,</span> <span class="pre">!=,</span> <span class="pre">&lt;,</span> <span class="pre">&lt;=,</span> <span class="pre">&gt;,</span> <span class="pre">&gt;=</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="pipe-expressions">
+<h2>Pipe Expressions<a class="headerlink" href="#pipe-expressions" title="Permalink to this headline">¶</a></h2>
+<p>Projections are an important concept in JMESPath.  However, there are times
+when projection semantics are <em>not</em> what you want.  A common scenario is when
+you want to operate of the <em>result</em> of a projection rather than projecting an
+expression onto each element in the array.  For example, the expression
+<tt class="docutils literal"><span class="pre">people[*].first</span></tt> will give you an array containing the first names of
+everyone in the people array.  What if you wanted the first element in that
+list?  If you tried <tt class="docutils literal"><span class="pre">people[*].first[0]</span></tt> that you just evaluate <tt class="docutils literal"><span class="pre">first[0]</span></tt>
+for each element in the people array, and because indexing is not defined for
+strings, the final result would be an empty array, <tt class="docutils literal"><span class="pre">[]</span></tt>.  To accomplish the
+desired result, you can use a pipe expression, <tt class="docutils literal"><span class="pre">&lt;expression&gt;</span> <span class="pre">|</span> <span class="pre">&lt;expression&gt;</span></tt>,
+to indicate that a projection must stop.  This is shown in the example below:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="people[*].first | [0]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="10">
+{
+  "people": [
+    {"first": "James", "last": "d"},
+    {"first": "Jacob", "last": "e"},
+    {"first": "Jayden", "last": "f"},
+    {"missing": "different"}
+  ],
+  "foo": {"bar": "baz"}
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>In the example above, the RHS of the list projection is <tt class="docutils literal"><span class="pre">first</span></tt>.  When a pipe
+is encountered, the result up to that point is passed to the RHS of the pipe
+expression.  The pipe expression is evaluated as:</p>
+<div class="highlight-python"><div class="highlight"><pre>evaluate(people[*].first, inputData) -&gt; [&quot;James&quot;, &quot;Jacob&quot;, &quot;Jayden&quot;]
+evaluate([0], [&quot;James&quot;, &quot;Jacob&quot;, &quot;Jayden&quot;]) -&gt; &quot;James&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiselect">
+<h2>MultiSelect<a class="headerlink" href="#multiselect" title="Permalink to this headline">¶</a></h2>
+<p>Up to this point, we&#8217;ve looked at JMESPath expressions that help to pare down a
+JSON document into just the elements you&#8217;re interested in.  This next concept,
+<a class="reference internal" href="specification.html#multiselectlist"><em>multiselect lists</em></a> and
+<a class="reference internal" href="specification.html#multiselecthash"><em>multiselect hashes</em></a> allow you to create JSON elements.
+This allows you to create elements that don&#8217;t exist in a JSON document.  A
+multiselect list creates a list and a multiselect hash creates a JSON object.</p>
+<p>This is an example of a multiselect list:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="people[].[name, state.name]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="20">
+{
+  "people": [
+    {
+      "name": "a",
+      "state": {"name": "up"}
+    },
+    {
+      "name": "b",
+      "state": {"name": "down"}
+    },
+    {
+      "name": "c",
+      "state": {"name": "up"}
+    }
+  ]
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>In the expression above, the <tt class="docutils literal"><span class="pre">[name,</span> <span class="pre">state.name]</span></tt> portion is a multiselect
+list.  It says to create a list of two element, the first element is the result
+of evaluating the <tt class="docutils literal"><span class="pre">name</span></tt> expression against the list element, and the second
+element is the result of evaluating <tt class="docutils literal"><span class="pre">state.name</span></tt>.  Each list element will
+therefore create a two element list, and the final result of the entire
+expression is a list of two element lists.</p>
+<p>Unlike a projection, the result of the expression in always included, even if
+the result is a null.  If you change the above expression to <tt class="docutils literal"><span class="pre">people[].[foo,</span>
+<span class="pre">bar]</span></tt> each two element list will be <tt class="docutils literal"><span class="pre">[null,</span> <span class="pre">null]</span></tt>.</p>
+<p>A multiselect has the same basic idea of a multiselect list, except it instead
+creates a hash instead of an array.  Using the same example above, if we
+instead wanted to create a two element hash that had two keys, <tt class="docutils literal"><span class="pre">Name</span></tt> and
+<tt class="docutils literal"><span class="pre">State</span></tt>, we could use this:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="people[].{Name: name, State: state.name}" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="20">
+{
+  "people": [
+    {
+      "name": "a",
+      "state": {"name": "up"}
+    },
+    {
+      "name": "b",
+      "state": {"name": "down"}
+    },
+    {
+      "name": "c",
+      "state": {"name": "up"}
+    }
+  ]
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>JMESPath supports function expressions, for example:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="length(people)" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="20">
+{
+  "people": [
+    {
+      "name": "b",
+      "age": 30,
+      "state": {"name": "up"}
+    },
+    {
+      "name": "a",
+      "age": 50,
+      "state": {"name": "down"}
+    },
+    {
+      "name": "c",
+      "age": 40,
+      "state": {"name": "up"}
+    }
+  ]
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Functions can be used to transform and filter data in powerful ways.  The full
+list of functions can be found <a class="reference internal" href="specification.html#builtin-functions"><em>here</em></a>, and the
+<a class="reference internal" href="specification.html#functions"><em>function expression</em></a> spec has the complete details.</p>
+<p>Below are a few examples of functions.</p>
+<p>This example prints the name of the oldest person in the <tt class="docutils literal"><span class="pre">people</span></tt> array:</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="max_by(people, &age).name" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="20">
+{
+  "people": [
+    {
+      "name": "b",
+      "age": 30
+    },
+    {
+      "name": "a",
+      "age": 50
+    },
+    {
+      "name": "c",
+      "age": 40
+    }
+  ]
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Functions can also be combined with filter expressions.  In the example below,
+the JMESPath expressions finds all elements in <tt class="docutils literal"><span class="pre">myarray</span></tt> that contains the
+string <tt class="docutils literal"><span class="pre">foo</span></tt>.</p>
+<div class="jmespath-demo">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="col-md-6 col-md-push-6">
+          <h5>Result</h5>
+          <pre class="jmespath-result"></pre>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <form class="jmespath-form">
+            <div class="left-inner-addon">
+              <span class="glyphicon glyphicon-search"></span>
+              <input class="form-control jmespath-expression"
+                     type="text" placeholder="Expression"
+                     value="myarray[?contains(@, 'foo') == `true`]" />
+            </div>
+
+            <textarea class="form-control jmespath-input" rows="20">
+{
+  "myarray": [
+    "foo",
+    "foobar",
+    "barfoo",
+    "bar",
+    "baz",
+    "barbaz",
+    "barfoobaz"
+  ]
+}</textarea>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">&#64;</span></tt> character in the example above refers to the current element being
+evaluated in <tt class="docutils literal"><span class="pre">myarray</span></tt>.  The expression <tt class="docutils literal"><span class="pre">contains(&#64;,</span> <span class="pre">`foo`)</span></tt> will return
+<tt class="docutils literal"><span class="pre">true</span></tt> if the current element in the <tt class="docutils literal"><span class="pre">myarray</span></tt> array contains the string
+<tt class="docutils literal"><span class="pre">foo</span></tt>.</p>
+<p>While the <a class="reference internal" href="specification.html#functions"><em>function expression</em></a> spec has all the details,
+there are a few things to keep in mind when working with functions:</p>
+<ul class="simple">
+<li>Function arguments have types.  If an argument for a function has the wrong
+type, an <tt class="docutils literal"><span class="pre">invalid-type</span></tt> error will occur.  There are functions that can
+do type conversions (<tt class="docutils literal"><span class="pre">to_string</span></tt>, <tt class="docutils literal"><span class="pre">to_number</span></tt>) to help get arguments
+converted to their proper type.</li>
+<li>If a function is called with the wrong number of arguments, an
+<tt class="docutils literal"><span class="pre">invalid-arity</span></tt> will occur.</li>
+</ul>
+</div>
+<div class="section" id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ve now seen an overview of the JMESPath language.  The next things to do are:</p>
+<ul class="simple">
+<li>See the <a class="reference internal" href="examples.html"><em>JMESPath Examples</em></a>.  You&#8217;ll see common JMESPath expressions that go
+beyond the tutorial. You&#8217;ll also see you how to combine multiple features
+together in order to best leverage JMESPath expressions.</li>
+<li>To actually start using JMESPath, pick the language of your choice, and
+check out the <a class="reference internal" href="libraries.html"><em>JMESPath Libraries</em></a> page for more information on using JMESPath
+in the language of your choice.</li>
+<li>Read the <a class="reference internal" href="specification.html#spec"><em>JMESPath Spec</em></a>, which has the official ABNF grammar and full
+details of the semantics of the language.</li>
+</ul>
+</div>
+</div>
+
+
+                  </div>
+  <div class="col-md-3 col-md-pull-9 sphinxsidebar">
+    <div class="sphinxsidebarwrapper"><p class="logo"><a href="/">
+  <img id="sidebar-logo" src="_static/img/logo-dark.png" alt="JMESPath Logo" />
+</a></p>
+  <h3><a href="contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">JMESPath Tutorial</a><ul>
+<li><a class="reference internal" href="#basic-expressions">Basic Expressions</a></li>
+<li><a class="reference internal" href="#slicing">Slicing</a></li>
+<li><a class="reference internal" href="#projections">Projections</a><ul>
+<li><a class="reference internal" href="#list-and-slice-projections">List and Slice Projections</a></li>
+<li><a class="reference internal" href="#object-projections">Object Projections</a></li>
+<li><a class="reference internal" href="#flatten-projections">Flatten Projections</a></li>
+<li><a class="reference internal" href="#filter-projections">Filter Projections</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pipe-expressions">Pipe Expressions</a></li>
+<li><a class="reference internal" href="#multiselect">MultiSelect</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+    </div>
+  </div>
+              </div>
+            </div>
+
+        </div>
+
+<script>
+$(document).ready(function() {
+    $('.jmespath-demo').each(function(i, el) {
+        function evaluateDemo(el) {
+            var expression = $(el).find('.jmespath-expression').val();
+            var inputData = JSON.parse($(el).find('.jmespath-input').val());
+            var result = jmespath.search(inputData, expression);
+            $(el).find('.jmespath-result').text(JSON.stringify(result, null, 2));
+        }
+        $(el).find('.jmespath-expression').bind('keyup', function() {
+            evaluateDemo(el);
+        });
+        $(el).find('.jmespath-input').bind('keyup', function() {
+            evaluateDemo(el);
+        });
+        evaluateDemo(el);
+    });
+    $('.jmespath-form').submit(function() {
+      return false;
+    });
+})
+</script>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="JMESPath Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="JMESPath"
+             >previous</a> |</li>
+        <li><a href="contents.html">JMESPath</a> &raquo;</li> 
+      </ul>
+    </div>
+
+  <script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <script type="text/javascript" src="_static/js/jmespath.min.js"></script>
+  <script type="text/javascript" src="_static/js/jquery-migrate-1.2.1.min.js"></script>
+  <script src="//static.getclicky.com/js" type="text/javascript"></script>
+  <script type="text/javascript">try{ clicky.init(100732121); }catch(e){}</script>
+  <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100732121ns.gif" /></p></noscript>
+  <div class="footer container">
+    &copy; Copyright 2014-2015, James Saryerwinnie.
+  </div>
+  </body>
+</html>

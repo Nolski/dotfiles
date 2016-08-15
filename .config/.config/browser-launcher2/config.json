@@ -1,0 +1,27 @@
+{
+  "browsers": [
+    {
+      "name": "chrome",
+      "re": {},
+      "type": "chrome",
+      "profile": "/Users/mnolan/.config/browser-launcher2/chrome-46.0.2490.86_97bdc2b9",
+      "command": "/Applications/Google Chrome.app",
+      "version": "46.0.2490.86"
+    },
+    {
+      "name": "firefox",
+      "re": {},
+      "type": "firefox",
+      "profile": true,
+      "command": "/Applications/Firefox.app/Contents/MacOS/firefox-bin",
+      "version": "39.0"
+    },
+    {
+      "name": "safari",
+      "type": "safari",
+      "profile": false,
+      "command": "/Applications/Safari.app",
+      "version": "9.0.1"
+    }
+  ]
+}
