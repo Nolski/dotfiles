@@ -5,13 +5,13 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-" All of your Plugins must be added before the following line
+Plugin 'airblade/vim-gitgutter'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -30,3 +30,6 @@ imap jj <Esc>
 " Airline Config
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+
+" Gitgutter Config
+set updatetime=100
