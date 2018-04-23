@@ -17,8 +17,12 @@ filetype plugin indent on    " required
 
 syntax on
 set backspace=indent,eol,start
+
+" Crosshairs stuff
 set cursorline    " enable the horizontal line
 set cursorcolumn  " enable the vertical line
+hi CursorColumn cterm=NONE ctermbg=235 ctermfg=NONE gui=NONE guibg=#073642 guifg=NONE
+hi CursorLine   cterm=NONE ctermbg=235 ctermfg=NONE gui=NONE guibg=#073642 guifg=NONE
 
 " Tab stuff
 set tabstop=4
