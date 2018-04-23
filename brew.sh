@@ -93,6 +93,7 @@ brew install tree
 brew install vbindiff
 brew install zopfli
 brew install thefuck
+brew install ranger
 
 # Remove outdated versions from the cellar.
 brew cleanup
